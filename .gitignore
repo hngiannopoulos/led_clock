@@ -1,1 +1,3 @@
 embedded/build-nano/
+*.sublime-project
+*.sublime-workspace
