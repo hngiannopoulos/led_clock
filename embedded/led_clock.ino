@@ -1,19 +1,23 @@
 /*
-  Blink
-  Turns on an LED on for one second, then off for one second, repeatedly.
- 
-  This example code is in the public domain.
- */
+  HT1632 Test Program
+*/
+#include <ht1632c.h>
 
-void setup() {                
-  // initialize the digital pin as an output.
-  // Pin 13 has an LED connected on most Arduino boards:
-  pinMode(13, OUTPUT);     
+#define CS     4 /* Arduino Pin 12 */
+#define CLK    3 /* Arduino Pin 11 */
+#define WR     5 /* Arduino Pin 13 */
+#define DATA   2 /* Arduino Pin 10 */
+
+ht1632c ledMatrix = ht1632c(&PORTB, DATA, WR, CLK, CS, GEOM_32x16, 1);
+
+void setup() {
+    ledMatrix.clear();
+    ledMatrix.pwm(1);
+
 }
 
 void loop() {
-  digitalWrite(13, HIGH);   // set the LED on
-  delay(1000);              // wait for a second
-  digitalWrite(13, LOW);    // set the LED off
-  delay(1000);              // wait for a second
+    ledMatrix.line(0,10, 5,15, random(1,4));
+    ledMatrix.sendframe();
+    delay(10000);
 }

@@ -3,7 +3,7 @@
 #include <string.h>
 #include "ht1632c.h"
 #include "Print.h"
-#include "font_b.h"
+#include "font.h"
 #include "font_koi8.h"
 
 /* fast integer (1 uint8_t) modulus - returns n % d */
@@ -378,8 +378,8 @@ uint8_t ht1632c::putchar(int x, int y, char c, uint8_t color, uint8_t attr, uint
   msb = 1 << (height - 1);
 
   // some math with pointers... don't try this at home ;-)
-  prog_uint8_t *addr = font + c * width;
-  prog_uint16_t *waddr = wfont + c * width;
+  uint8_t *addr = font + c * width;
+  uint16_t *waddr = wfont + c * width;
 
   for (col = 0; col < width; col++) {
     dots = (height > 8) ? pgm_read_word_near(waddr + col) : pgm_read_byte_near(addr + col);
@@ -396,7 +396,7 @@ uint8_t ht1632c::putchar(int x, int y, char c, uint8_t color, uint8_t attr, uint
 
 /* put a bitmap in the coordinates x, y */
 
-void ht1632c::putbitmap(int x, int y, prog_uint16_t *bitmap, uint8_t w, uint8_t h, uint8_t color)
+void ht1632c::putbitmap(int x, int y, uint16_t *bitmap, uint8_t w, uint8_t h, uint8_t color)
 {
   uint16_t dots, msb;
   char col, row;
@@ -491,168 +491,168 @@ void ht1632c::setfont(uint8_t userfont)
 
 #ifdef FONT_4x6
     case FONT_4x6:
-	font = (prog_uint8_t *) &font_4x6[0];
+	font = (uint8_t *) &font_4x6[0];
 	font_width = 4;
 	font_height = 6;
 	break;
 #endif
 #ifdef FONT_5x7
     case FONT_5x7:
-	font = (prog_uint8_t *) &font_5x7[0];
+	font = (uint8_t *) &font_5x7[0];
 	font_width = 5;
 	font_height = 7;
 	break;
 #endif
 #ifdef FONT_5x8
     case FONT_5x8:
-	font = (prog_uint8_t *) &font_5x8[0];
+	font = (uint8_t *) &font_5x8[0];
 	font_width = 5;
 	font_height = 8;
 	break;
 #endif
 #ifdef FONT_5x7W
     case FONT_5x7W:
-	font = (prog_uint8_t *) &font_5x7w[0];
+	font = (uint8_t *) &font_5x7w[0];
 	font_width = 5;
 	font_height = 8;
 	break;
 #endif
 #ifdef FONT_6x10
     case FONT_6x10:
-	wfont = (prog_uint16_t *) &font_6x10[0];
+	wfont = (uint16_t *) &font_6x10[0];
 	font_width = 6;
 	font_height = 10;
 	break;
 #endif
 #ifdef FONT_6x12
     case FONT_6x12:
-	wfont = (prog_uint16_t *) &font_6x12[0];
+	wfont = (uint16_t *) &font_6x12[0];
 	font_width = 6;
 	font_height = 12;
 	break;
 #endif
 #ifdef FONT_6x13
     case FONT_6x13:
-	wfont = (prog_uint16_t *) &font_6x13[0];
+	wfont = (uint16_t *) &font_6x13[0];
 	font_width = 6;
 	font_height = 13;
 	break;
 #endif
 #ifdef FONT_6x13B
     case FONT_6x13B:
-	wfont = (prog_uint16_t *) &font_6x13B[0];
+	wfont = (uint16_t *) &font_6x13B[0];
 	font_width = 6;
 	font_height = 13;
 	break;
 #endif
 #ifdef FONT_6x13O
     case FONT_6x13O:
-	wfont = (prog_uint16_t *) &font_6x13O[0];
+	wfont = (uint16_t *) &font_6x13O[0];
 	font_width = 6;
 	font_height = 13;
 	break;
 #endif
 #ifdef FONT_6x9
     case FONT_6x9:
-	wfont = (prog_uint16_t *) &font_6x9[0];
+	wfont = (uint16_t *) &font_6x9[0];
 	font_width = 6;
 	font_height = 9;
 	break;
 #endif
 #ifdef FONT_7x13
     case FONT_7x13:
-	wfont = (prog_uint16_t *) &font_7x13[0];
+	wfont = (uint16_t *) &font_7x13[0];
 	font_width = 7;
 	font_height = 13;
 	break;
 #endif
 #ifdef FONT_7x13B
     case FONT_7x13B:
-	wfont = (prog_uint16_t *) &font_7x13B[0];
+	wfont = (uint16_t *) &font_7x13B[0];
 	font_width = 7;
 	font_height = 13;
 	break;
 #endif
 #ifdef FONT_7x13O
     case FONT_7x13O:
-	wfont = (prog_uint16_t *) &font_7x13O[0];
+	wfont = (uint16_t *) &font_7x13O[0];
 	font_width = 7;
 	font_height = 13;
 	break;
 #endif
 #ifdef FONT_7x14
     case FONT_7x14:
-	wfont = (prog_uint16_t *) &font_7x14[0];
+	wfont = (uint16_t *) &font_7x14[0];
 	font_width = 7;
 	font_height = 14;
 	break;
 #endif
 #ifdef FONT_7x14B
     case FONT_7x14B:
-	wfont = (prog_uint16_t *) &font_7x14B[0];
+	wfont = (uint16_t *) &font_7x14B[0];
 	font_width = 7;
 	font_height = 14;
 	break;
 #endif
 #ifdef FONT_8x8
     case FONT_8x8:
-	font = (prog_uint8_t *) &font_8x8[0];
+	font = (uint8_t *) &font_8x8[0];
 	font_width = 8;
 	font_height = 8;
 	break;
 #endif
 #ifdef FONT_8x13
     case FONT_8x13:
-	wfont = (prog_uint16_t *) &font_8x13[0];
+	wfont = (uint16_t *) &font_8x13[0];
 	font_width = 8;
 	font_height = 13;
 	break;
 #endif
 #ifdef FONT_8x13B
     case FONT_8x13B:
-	wfont = (prog_uint16_t *) &font_8x13B[0];
+	wfont = (uint16_t *) &font_8x13B[0];
 	font_width = 8;
 	font_height = 13;
 	break;
 #endif
 #ifdef FONT_8x13O
     case FONT_8x13O:
-	wfont = (prog_uint16_t *) &font_8x13O[0];
+	wfont = (uint16_t *) &font_8x13O[0];
 	font_width = 8;
 	font_height = 13;
 	break;
 #endif
 #ifdef FONT_9x15
     case FONT_9x15:
-	wfont = (prog_uint16_t *) &font_9x15[0];
+	wfont = (uint16_t *) &font_9x15[0];
 	font_width = 9;
 	font_height = 15;
 	break;
 #endif
 #ifdef FONT_9x15B
     case FONT_9x15B:
-	wfont = (prog_uint16_t *) &font_9x15b[0];
+	wfont = (uint16_t *) &font_9x15b[0];
 	font_width = 9;
 	font_height = 15;
 	break;
 #endif
 #ifdef FONT_8x16
     case FONT_8x16:
-	wfont = (prog_uint16_t *) &font_8x16[0];
+	wfont = (uint16_t *) &font_8x16[0];
 	font_width = 8;
 	font_height = 16;
 	break;
 #endif
 #ifdef FONT_8x16B
     case FONT_8x16B:
-	wfont = (prog_uint16_t *) &font_8x16b[0];
+	wfont = (uint16_t *) &font_8x16b[0];
 	font_width = 8;
 	font_height = 16;
 	break;
 #endif
 #ifdef FONT_8x13BK
     case FONT_8x13BK:
-	wfont = (prog_uint16_t *) &font_8x13bk[0];
+	wfont = (uint16_t *) &font_8x13bk[0];
 	font_width = 8;
 	font_height = 13;
 	break;

@@ -27,8 +27,8 @@
 #if defined (__ARMEL__)
 typedef unsigned char uint8_t;
 typedef unsigned int uint16_t;
-typedef unsigned char prog_uint8_t;
-typedef unsigned int prog_uint16_t;
+typedef unsigned char uint8_t;
+typedef unsigned int uint16_t;
 uint8_t inline pgm_read_byte_near(uint8_t *ptr) { return (uint8_t)*ptr; }
 uint16_t inline pgm_read_word_near(uint16_t *ptr) { return (uint16_t)*ptr; }
 #define PROGMEM __FLASH__
@@ -158,7 +158,7 @@ public:
     void plot(uint8_t x, uint8_t y, uint8_t color);
     uint8_t getpixel(uint8_t x, uint8_t y);
     uint8_t putchar(int x, int y, char c, uint8_t color = GREEN, uint8_t attr = 0, uint8_t bgcolor = BLACK);
-    void putbitmap(int x, int y, prog_uint16_t *bitmap, uint8_t w, uint8_t h, uint8_t color);
+    void putbitmap(int x, int y, uint16_t *bitmap, uint8_t w, uint8_t h, uint8_t color);
     void hscrolltext(int y, char *text, uint8_t color, int delaytime, int times = 1, uint8_t dir = LEFT, uint8_t attr = 0, uint8_t bgcolor = BLACK);
     void vscrolltext(int x, char *text, uint8_t color, int delaytime, int times = 1, uint8_t dir = UP, uint8_t attr = 0, uint8_t bgcolor = BLACK);
     void setfont(uint8_t userfont);
@@ -207,8 +207,8 @@ private:
     uint16_t fb_size;
     uint8_t cs_max;
     boolean bicolor;
-    prog_uint8_t *font;
-    prog_uint16_t *wfont;
+    uint8_t *font;
+    uint16_t *wfont;
     uint8_t font_width;
     uint8_t font_height;
     uint8_t x_cur;
