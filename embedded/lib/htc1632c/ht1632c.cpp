@@ -323,7 +323,7 @@ void ht1632c::clear()
   y_cur = 0;
   memset(g_fb, 0, fb_size);
   memset(r_fb, 0, fb_size);
-  sendframe();
+  //sendframe();
 }
 
 inline void ht1632c::_update_fb(uint8_t *ptr, uint8_t target, uint8_t pixel)

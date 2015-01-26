@@ -1,6 +1,10 @@
 BOARD_TAG	= pro5v328
 
-ARDUINO_LIBS = htc1632c
+# NEED TO INCLUDE BOTH EXTRA_CFLAGS and CFLAGS_STD DUE TO ISSUE WITH 
+# AN EARLIER VERSION OF ARDUINO MAKEFILE
+EXTRA_CFLAGS        = -std=c99
+CFLAGS_STD			= -std=c99
+ARDUINO_LIBS = htc1632c ai_snake
 USER_LIB_PATH := $(realpath ./lib)
 MONITOR_PORT = /dev/ttyUSB0
 include /usr/share/arduino/Arduino.mk
