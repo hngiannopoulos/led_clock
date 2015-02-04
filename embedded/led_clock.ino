@@ -44,7 +44,6 @@ void setup() {
     gameStruct.clear_function = ht1632c_clear;
     gameStruct.push_function  = ht1632c_push;
     gameStruct.print_function = snake_print;
-    gameStruct.cookie         = NULL;
     gameStruct.board_x        = 31;
     gameStruct.board_y        = 15;
     gameStruct.color_depth    = 2;
@@ -54,22 +53,25 @@ void setup() {
     /* 7 7 8 4 1 Pretty efficcient no loop*/
     /* 5 6 1 2 3 Likes to loop on iteself gets into loop */
 
-    gameStruct.manhattan_weight    = 1;
-    gameStruct.turn_weight         = 1;
-    gameStruct.no_turn_weight      = 1;
-    gameStruct.look_ahead_distance = 1;
-    gameStruct.look_ahead_weight   = 1;
+    gameStruct.manhattan_weight    = 3;
+    gameStruct.turn_weight         = 8;
+    gameStruct.no_turn_weight      = 9;
+    gameStruct.look_ahead_distance = 9;
+    gameStruct.look_ahead_weight   = 4;
 
     snakeInit(&gameStruct, &snakeStruct);
     
+    snakeStruct.cookie         = NULL;
     snakeStruct.snake_color = 1;
     snakeStruct.apple_color = 2;
-
+#ifdef OBSTACLE_ON
+    snakeStruct.obstacle_color = 3;
+#endif
 }
 
 void loop() {
-    runFrame();
-    drawSnake();
+    runFrame(&snakeStruct);
+    drawSnake(&snakeStruct);
     if(snakeStruct.state == WON){
         Serial.println("WON");
         //Serial.println(snakeStruct->apple_count);
